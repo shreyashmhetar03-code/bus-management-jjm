@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Bus Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-bus-simple sidebar-logo"></i>
+                <h2>EduTransit</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-target="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-target="buses">
+                    <i class="fa-solid fa-bus"></i> Buses
+                </a>
+                <a href="#" class="nav-item" data-target="students">
+                    <i class="fa-solid fa-users"></i> Students
+                </a>
+                <a href="#" class="nav-item" data-target="routes">
+                    <i class="fa-solid fa-route"></i> Routes
+                </a>
+                <a href="#" class="nav-item" data-target="drivers">
+                    <i class="fa-solid fa-id-card"></i> Drivers
+                </a>
+                <a href="#" class="nav-item" data-target="fees">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Fees
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=0b5cff&color=fff" alt="Admin">
+                    <div class="user-info">
+                        <strong>Admin User</strong>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <button class="mobile-menu-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search buses, students, routes...">
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn notification-btn">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="icon-btn">
+                        <i class="fa-solid fa-gear"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dynamic Views -->
+            <div class="view-container">
+                <!-- Dashboard View -->
+                <section id="dashboard" class="view active">
+                    <div class="view-header">
+                        <div>
+                            <h1>Dashboard Summary</h1>
+                            <p>Overview of your transport operations today.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-blue-100 text-blue-600">
+                                <i class="fa-solid fa-bus"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Total Buses</h3>
+                                <div class="stat-value" id="stat-buses">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-green-100 text-green-600">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Allocated Students</h3>
+                                <div class="stat-value" id="stat-students">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-purple-100 text-purple-600">
+                                <i class="fa-solid fa-route"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Active Routes</h3>
+                                <div class="stat-value" id="stat-routes">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-orange-100 text-orange-600">
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Pending Fees</h3>
+                                <div class="stat-value" id="stat-fees">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-widgets">
+                        <div class="widget card">
+                            <div class="card-header">
+                                <h3>Recent Alerts</h3>
+                                <button class="btn-text">View All</button>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="alert-list">
+                                    <li class="alert-item warning">
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                        <div class="alert-content">
+                                            <strong>Bus #12 (Route A) Delayed</strong>
+                                            <span>Expected delay of 15 mins due to traffic.</span>
+                                        </div>
+                                        <span class="alert-time">10m ago</span>
+                                    </li>
+                                    <li class="alert-item info">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <div class="alert-content">
+                                            <strong>Fee Reminder Sent</strong>
+                                            <span>Automated reminders sent to 45 parents.</span>
+                                        </div>
+                                        <span class="alert-time">1h ago</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget card">
+                            <div class="card-header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="card-body quick-actions">
+                                <button class="btn-outline" onclick="app.navigate('students')"><i class="fa-solid fa-user-plus"></i> Allocate Student</button>
+                                <button class="btn-outline" onclick="app.navigate('buses')"><i class="fa-solid fa-plus"></i> Add New Bus</button>
+                                <button class="btn-outline" onclick="app.navigate('fees')"><i class="fa-solid fa-receipt"></i> Record Fee</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Buses View -->
+                <section id="buses" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h1>Bus Management</h1>
+                            <p>Manage fleet and their status</p>
+                        </div>
+                        <button class="btn-primary" onclick="app.openModal('busModal')"><i class="fa-solid fa-plus"></i> Add New Bus</button>
+                    </div>
+                    <div class="card">
+                        <div class="table-actions">
+                            <div class="search-box">
+                                <i class="fa-solid fa-search" style="color:#94a3b8; margin-right:8px;"></i>
+                                <input type="text" id="search-buses" placeholder="Search buses by number..." style="border:1px solid #e2e8f0; padding:8px 12px; border-radius:4px; outline:none;">
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="buses-table">
+                                <thead>
+                                    <tr>
+                                        <th>Bus No.</th>
+                                        <th>Capacity</th>
+                                        <th>Driver</th>
+                                        <th>Route</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Students View -->
+                <section id="students" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h1>Student Allocation</h1>
+                            <p>Manage student transport registration</p>
+                        </div>
+                        <button class="btn-primary" onclick="app.openModal('studentModal')"><i class="fa-solid fa-plus"></i> Allocate Student</button>
+                    </div>
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="students-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student Name</th>
+                                        <th>Class/Grade</th>
+                                        <th>Pickup Point</th>
+                                        <th>Bus No.</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fees View -->
+                <section id="fees" class="view">
+                    <div class="view-header">
+                        <div>
+                            <h1>Transport Fees</h1>
+                            <p>Track fee collection and pending dues</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="fees-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student Name</th>
+                                        <th>Bus No.</th>
+                                        <th>Total Fee</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="busModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add / Edit Bus</h2>
+                <button class="close-btn" onclick="app.closeModal('busModal')"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="busForm" onsubmit="app.saveBus(event)">
+                    <input type="hidden" id="busId">
+                    <div class="form-group">
+                        <label>Bus Number</label>
+                        <input type="text" id="busNo" required placeholder="e.g. DL-1C-4567">
+                    </div>
+                    <div class="form-group">
+                        <label>Capacity</label>
+                        <input type="number" id="busCapacity" required placeholder="e.g. 40">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="busStatus">
+                            <option value="Active">Active</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" onclick="app.closeModal('busModal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Bus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Student Modal -->
+    <div class="modal-overlay" id="studentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Allocate Student</h2>
+                <button class="close-btn" onclick="app.closeModal('studentModal')"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="studentForm" onsubmit="app.saveStudent(event)">
+                    <input type="hidden" id="studentId">
+                    <div class="form-group">
+                        <label>Student Name</label>
+                        <input type="text" id="studentName" required placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Class/Grade</label>
+                        <input type="text" id="studentClass" required placeholder="e.g. 10th A">
+                    </div>
+                    <div class="form-group">
+                        <label>Pickup Location</label>
+                        <input type="text" id="studentLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Assign Bus</label>
+                        <select id="studentBus" required>
+                            <!-- Dynamically populated -->
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" onclick="app.closeModal('studentModal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Allocation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/data.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+</body>
+</html>
